@@ -30,6 +30,8 @@ Here are the command line arguments (and default values). The positions of the v
 ./fibweave [divisor: 99] [scale factor: 8] [image width: 3840] [image height: 2160]
 ```
 
+Requires `numpy` and `PIL`.
+
 Here's the image generated with the default values
 
 ![](./im.png)
