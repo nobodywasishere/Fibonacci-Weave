@@ -20,14 +20,16 @@ Building on top of this, if we were to add rows where we simply increment the fi
  1  1  2  3  5  8  2 10  1  0  1  1 ...
  2  1  3  4  7  0  7  7  3 10  2  1 ...
  3  1  4  5  9  3  1  4  5  9  3  1 ...
- ...
+ .
+ .
+ .
 ```
 
 This is a python script for generating these images as using spreadsheet programs was starting to get very slow. Even though they serve no practical purpose (at this time), I still think they at least look interesting. This script generates these "Fibonacci Weaves" with a given divisor and image size/scale, and adds colors for the min/max values to help visualize the data.
 
 Here are the command line arguments (and default values). The positions of the values are hard-set, so to set the image size, you'll also need to set the divisor and scale.
 ```
-./fibweave [divisor: 99] [scale factor: 8] [image width: 3840] [image height: 2160]
+./fibweave [divisor: 198] [scale factor: 2] [image width: 968] [image height: 792]
 ```
 
 Requires `numpy` and `PIL`.
