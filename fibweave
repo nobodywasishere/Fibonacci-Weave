@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+
+import os, sys
+import numpy as np
+from PIL import Image, ImageOps
+
+if (len(sys.argv) < 2):
+    divisor = 99
+else:
+    try:
+        divisor = int(sys.argv[1])
+    except:
+        print("Error: not a number")
+        print("fibweave [divisor: 99] [scale factor: 8] [image width: 3840] "
+        "[image height: 2160]")
+        sys.exit(1)
+
+if (len(sys.argv) < 3):
+    im_scale = 8
+else:
+    im_scale = int(sys.argv[2])
+
+if (len(sys.argv) < 5):
+    im_length = 2160
+    im_width = 3840
+else:
+    im_length = int(sys.argv[4])
+    im_width = int(sys.argv[3])
+
+length = int(im_length/im_scale)
+width = int(im_width/im_scale)
+
+fibweave = [[0 for x in range(width)] for y in range(length)]
+
+for i in range(length):
+    fibweave[i][1] = 1
+    if (i != 0): fibweave[i][0] = (fibweave[i - 1][0] + 1) % divisor
+
+for i in range(length):
+    for j in range(2, width):
+        fibweave[i][j] = (fibweave[i][j - 1] + fibweave[i][j - 2]) % divisor
+
+color_scale = 256 / divisor
+
+for i in range(length):
+    for j in range(2, width):
+        fibweave[i][j] = fibweave[i][j] * color_scale
+
+im = Image.fromarray(np.asarray(fibweave).astype('uint8'))
+im = ImageOps.colorize(im, black="red", white="green", mid="white")
+im = im.resize((im_width, im_length),resample=Image.NEAREST)
+im.save("im.png")
